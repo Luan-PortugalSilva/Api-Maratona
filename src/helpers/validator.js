@@ -5,16 +5,17 @@ const getValidatorError = (error, messagePath) => {
 
     const errorMessages = {}
     error.details.map((detail) => {
-        const message = error.details[0].message;
-        const type = error.detail.type;
-        const key = error.details[0].context.key;
+        const message = detail.message;
+        const type = detail.type;
+        const key = detail.context.key;
+
         const path = `${messagePath}.${key}.${type}`;
 
         const customMessage = getMessage(path)
         if (!customMessage) {
             console.log('customMessage not found for path:', path)
         }
-        errorMessages[key] = getMessage(path) || message
+        errorMessages[key] = customMessage || message
     })
 
     return errorMessages

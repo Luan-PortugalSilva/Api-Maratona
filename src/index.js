@@ -11,14 +11,14 @@ const app = express();
 app.use(response);
 app.use(checkJwt)
 
-app.use(express.json);
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
 // /auth/sign-in
 // /auth/sign-up
 app.use('/auth', authController)
-app.use('/auth', linkController)
+app.use('/link', linkController)
 
 
 app.get('/', (req, res) => {

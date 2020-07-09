@@ -5,6 +5,7 @@ const { accountSignUp, accountSignIn } = require('../validators/account')
 const { getMessage } = require('../helpers/validator')
 const { generateJwt, generateRefreshJwt } = require('../helpers/jwt')
 
+
 const router = express.Router();
 
 const saltRounds = 10;
@@ -20,7 +21,7 @@ router.post('/sign-in', accountSignIn, async(req, res) => {
     const token = generateJwt({ id: account.id })
     const refreshToken = generateRefreshJwt({ id: account.id })
 
-    return res.json(account, getMessage('account.signin.success'), { token, refreshToken })
+    return res.jsonOk(account, getMessage('account.signin.success'), { token, refreshToken })
 })
 
 
@@ -29,7 +30,7 @@ router.post('/sign-up', accountSignUp, async(req, res) => {
     const { email, password } = req.body;
 
     const account = await Account.findOne({ where: { email } })
-    if (account) return res.jsonBadRequest(null, 'account.signup.email_exists')
+    if (account) return res.jsonBadRequest(null, getMessage('account.signup.email_exists'))
 
     //const salt = 'djklawjdlkjawlkdawdkljdqweqwe'
     const hash = bcrypt.hashSync(password, saltRounds)
