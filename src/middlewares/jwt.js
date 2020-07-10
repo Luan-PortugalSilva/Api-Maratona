@@ -5,7 +5,7 @@ const checkJwt = (req, res, next) => {
     const { url: path } = req
 
     const exclusedPaths = ['/auth/sign-in', '/auth/sign-up']
-    const isExclused = !!exclusedPaths.find(p => p.startsWith(path))
+    const isExclused = !!exclusedPaths.find((p) => p.startsWith(path))
     if (isExclused) return next()
 
 
