@@ -24,7 +24,7 @@ const verifyRefreshJwt = (token) => {
 }
 
 const getTokenFromHeaders = (headers) => {
-    const token = req.headers['authorization']
+    const token = headers['authorization']
     return token ? token.slice(7, token.length) : null
 
 }
